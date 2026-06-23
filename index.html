@@ -1,0 +1,205 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behaviour Tracker Pro</title>
+
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+<header>
+    <h1>Behaviour Tracker Pro</h1>
+    <p>Classroom Behaviour Management System</p>
+</header>
+
+<nav>
+    <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="students">Students</button>
+    <button class="tab-btn" data-tab="classes">Classes</button>
+    <button class="tab-btn" data-tab="behaviour">Behaviour</button>
+    <button class="tab-btn" data-tab="reports">Reports</button>
+</nav>
+
+<main>
+
+<section id="dashboard" class="tab active">
+    <div class="stats-grid">
+
+        <div class="card">
+            <h2 id="studentCount">0</h2>
+            <p>Students</p>
+        </div>
+
+        <div class="card">
+            <h2 id="classCount">0</h2>
+            <p>Classes</p>
+        </div>
+
+        <div class="card">
+            <h2 id="todayCount">0</h2>
+            <p>Today's Records</p>
+        </div>
+
+        <div class="card">
+            <h2 id="totalPoints">0</h2>
+            <p>Total Points</p>
+        </div>
+
+    </div>
+
+    <div class="panel">
+        <h2>Recent Activity</h2>
+        <div id="recentActivity"></div>
+    </div>
+</section>
+
+<section id="students" class="tab">
+
+    <div class="panel">
+        <h2>Add Student</h2>
+
+        <input type="text" id="studentName" placeholder="Student Name">
+
+        <button id="addStudentBtn">
+            Add Student
+        </button>
+    </div>
+
+    <div class="panel">
+        <h2>Students</h2>
+        <div id="studentList"></div>
+    </div>
+
+</section>
+
+<section id="classes" class="tab">
+
+    <div class="panel">
+
+        <h2>Add Class</h2>
+
+        <input type="text" id="className" placeholder="Class Name">
+
+        <button id="addClassBtn">
+            Add Class
+        </button>
+
+    </div>
+
+    <div class="panel">
+        <h2>Classes</h2>
+        <div id="classList"></div>
+    </div>
+
+</section>
+
+<section id="behaviour" class="tab">
+
+    <div class="panel">
+
+        <h2>Record Behaviour</h2>
+
+        <label>Student</label>
+        <select id="behaviourStudent"></select>
+
+        <label>Class</label>
+        <select id="behaviourClass"></select>
+
+        <label>Behaviour Type</label>
+        <select id="behaviourType">
+            <option value="positive">Positive</option>
+            <option value="negative">Negative</option>
+        </select>
+
+        <label>Description</label>
+        <input
+            type="text"
+            id="behaviourDescription"
+            placeholder="Description">
+
+        <label>Points</label>
+        <input
+            type="number"
+            id="behaviourPoints"
+            value="1">
+
+        <button id="saveBehaviourBtn">
+            Save Behaviour
+        </button>
+
+    </div>
+
+</section>
+
+<section id="reports" class="tab">
+
+    <div class="panel">
+
+        <h2>Generate Report</h2>
+
+        <label>Report Period</label>
+
+        <select id="reportPeriod">
+            <option value="today">Today</option>
+            <option value="week">This Week</option>
+            <option value="month">This Month</option>
+            <option value="custom">Custom</option>
+        </select>
+
+        <div id="customDates">
+
+            <label>From</label>
+            <input type="date" id="fromDate">
+
+            <label>To</label>
+            <input type="date" id="toDate">
+
+        </div>
+
+        <button id="generateReportBtn">
+            Generate Report
+        </button>
+
+        <button id="printReportBtn">
+            Print Report
+        </button>
+
+    </div>
+
+    <div class="panel">
+
+        <h2>Report Results</h2>
+
+        <table id="reportTable">
+
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Student</th>
+                    <th>Class</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+
+            <tbody></tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
+```
