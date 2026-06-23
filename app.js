@@ -1,12 +1,34 @@
+let students = [];
+let classes = [];
+let behaviours = [];
 
-let students =
-JSON.parse(localStorage.getItem("students")) || [];
+async function loadCloudData() {
 
-let classes =
-JSON.parse(localStorage.getItem("classes")) || [];
+    const studentResult =
+        await supabase
+        .from("students")
+        .select("*");
 
-let behaviours =
-JSON.parse(localStorage.getItem("behaviours")) || [];
+    students =
+        studentResult.data || [];
+
+    const classResult =
+        await supabase
+        .from("classes")
+        .select("*");
+
+    classes =
+        classResult.data || [];
+
+    const behaviourResult =
+        await supabase
+        .from("behaviours")
+        .select("*");
+
+    behaviours =
+        behaviourResult.data || [];
+
+}
 
 function saveData() {
 
@@ -343,7 +365,36 @@ function renderClasses() {
 
 }
 
-function addClass() {
+```javascript
+async function addClass() {
+
+    const input =
+        document.getElementById("className");
+
+    const name =
+        input.value.trim();
+
+    if(!name) return;
+
+    await supabase
+        .from("classes")
+        .insert([
+            {
+                name: name
+            }
+        ]);
+
+    await loadCloudData();
+
+    renderClasses();
+    populateDropdowns();
+    updateDashboard();
+
+    input.value = "";
+
+}
+```
+
 
     const input =
         document.getElementById(
@@ -548,8 +599,70 @@ function populateDropdowns() {
     });
 
 }
+```javascript
+async function saveBehaviour() {
 
-function saveBehaviour() {
+    const studentId =
+        Number(
+            document.getElementById(
+                "behaviourStudent"
+            ).value
+        );
+
+    const classId =
+        Number(
+            document.getElementById(
+                "behaviourClass"
+            ).value
+        );
+
+    const type =
+        document.getElementById(
+            "behaviourType"
+        ).value;
+
+    const description =
+        document.getElementById(
+            "behaviourDescription"
+        ).value.trim();
+
+    let points =
+        Number(
+            document.getElementById(
+                "behaviourPoints"
+            ).value
+        );
+
+    if(type === "negative") {
+        points = -Math.abs(points);
+    }
+
+    await supabase
+        .from("behaviours")
+        .insert([
+            {
+                studentid: studentId,
+                classid: classId,
+                type: type,
+                description: description,
+                points: points
+            }
+        ]);
+
+    await loadCloudData();
+
+    updateDashboard();
+    generateReport();
+
+    document.getElementById(
+        "behaviourDescription"
+    ).value = "";
+
+    alert("Behaviour saved.");
+
+}
+```
+
 
     if(
         students.length === 0
@@ -977,5 +1090,20 @@ function initialise() {
 
 }
 
+async function initialise() {
+
+    await loadCloudData();
+
+    renderStudents();
+    renderClasses();
+    populateDropdowns();
+    updateDashboard();
+    generateReport();
+
+    document
+        .getElementById("customDates")
+        .style.display = "none";
+
+}
+
 initialise();
-```
